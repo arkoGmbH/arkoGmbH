@@ -63,7 +63,7 @@ class Root(tk.Tk):
         fontbig = tkFont.Font(size=25)
 
         lblProj=ttk.Label(self.tab1, text ="Übersicht aller Projekte", font=fontbig)
-        lblProj.grid(column = 0, row = 0,padx = 30,pady = 30)
+        lblProj.grid(column = 0, row = 4,padx = 30,pady = 30)
 
         # Input field
         InputField = ttk.Entry(self.tab1,font=fontbig,width=10)
@@ -71,18 +71,14 @@ class Root(tk.Tk):
         InputField.grid()
 
 
-        # Create a figure
-        #canvas = self.canvas(root, width=900, height=606)
-        #canvas.create_rectangle(50, 500, 300, 600, fill="red")
-        #canvas.grid(column=1, row=0)
-
         fig = Figure(figsize=(6, 4), dpi=100)
         t = np.arange(0, 3, .01)
         t1 = np.array([0,40,40,0,0])
         t2 = np.array([0,0,40,40,0])
-    
+        #fig.add_subplot().plot(t, 2 * np.sin(2 * np.pi * t))
         fig.add_subplot().plot(t1, t2)
         canvas = FigureCanvasTkAgg(fig, master=self.tab1)  # A tk.DrawingArea.
+        canvas.get_tk_widget().grid(row=10,column=2)
         canvas.draw()
 
 

@@ -9,7 +9,6 @@ from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 
 
-
 def demo():
     #root = tk.Tk()
     schedGraphics = tk
