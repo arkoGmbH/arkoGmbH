@@ -6,6 +6,7 @@
 # Gutes tab handling Beispiel: https://www.homeandlearn.uk/python-database-form-tabs3.html
 # ttk labels: https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/ttk-Label.html
 # Complete APP with popup and navigation: https://python-forum.io/thread-12435.html
+# /Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/549_Funktionen_Berechnung/07_TrägheitsTool/PythonProject/env/bin/python
 
 
 import tkinter as tk # gesamtes tk also tk
