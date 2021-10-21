@@ -9,9 +9,22 @@
 # /Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/549_Funktionen_Berechnung/07_TrägheitsTool/PythonProject/env/bin/python
 
 
+#from _typeshed import Self
 import tkinter as tk # gesamtes tk also tk
 from tkinter import ttk # Es wird ttk importiert, sodas man nicht tk.ttk schreiben muss
 import tkinter.font as tkFont
+
+# Maths and plotting
+import numpy as np
+import matplotlib.pyplot as plt
+
+# In order to embed matplot lib into tk interface
+from matplotlib.backends.backend_tkagg import (
+    FigureCanvasTkAgg, NavigationToolbar2Tk)
+
+from matplotlib.backend_bases import key_press_handler
+from matplotlib.figure import Figure
+
 
 
 class Root(tk.Tk):
@@ -21,6 +34,7 @@ class Root(tk.Tk):
         self.title("Ultrastruct")
         self.minsize(800, 600)
         self.configure(background="white")
+        
         
         # Add the dropdown menus
         self.createMenu()
@@ -52,15 +66,29 @@ class Root(tk.Tk):
         lblProj.grid(column = 0, row = 0,padx = 30,pady = 30)
 
         # Input field
-        w = ttk.Entry(self.tab1,font=fontbig,width=10)
-        w.insert(0,45)
-        w.grid()
+        InputField = ttk.Entry(self.tab1,font=fontbig,width=10)
+        InputField.insert(0,45)
+        InputField.grid()
+
+
+        # Create a figure
+        #canvas = self.canvas(root, width=900, height=606)
+        #canvas.create_rectangle(50, 500, 300, 600, fill="red")
+        #canvas.grid(column=1, row=0)
+
+        fig = Figure(figsize=(6, 4), dpi=100)
+        t = np.arange(0, 3, .01)
+        t1 = np.array([0,40,40,0,0])
+        t2 = np.array([0,0,40,40,0])
+    
+        fig.add_subplot().plot(t1, t2)
+        canvas = FigureCanvasTkAgg(fig, master=self.tab1)  # A tk.DrawingArea.
+        canvas.draw()
 
 
         # Show the final user interface
         tabControl.pack(expand=1, fill="both")
         self.tab_control = tabControl
-
 
     # Navigation
     def ToTab1(self):
@@ -132,8 +160,8 @@ class Root(tk.Tk):
 
 
 # Istantiate the App
-root = Root()
+App = Root()
 # Wait for actions
-root.mainloop()
+App.mainloop()
 
 
