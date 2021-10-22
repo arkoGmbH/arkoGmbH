@@ -5,11 +5,12 @@ import os
 
 
 def TableExists(DBName,TableName):
-    os.chdir("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/03_TrägheitTool/")
+    #os.chdir("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/03_TrägheitTool/")
     # Checks if a table exists within a specific DB
     # Create a connection to the DB
     try:
-        con = mdb.connect(str(DBName+'.db'))
+        ConInfo=str("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/03_TrägheitTool/"+DBName+'.db')
+        con = mdb.connect(ConInfo)
         # Create the cursor object
         cur = con.cursor()
     except Exception as ex:
@@ -40,13 +41,12 @@ def DeleteSQLiteTable(TableName):
 
 
 def CreateTableWithinDB(DBName, TableName, FieldsString):
-    os.chdir("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/03_TrägheitTool/")
     # Example: FieldsSting="date text, trans text, symbol text, qty real, price real"   hence Field_Name type(text or real), Field_Name type, Field_Name type
     exists=TableExists(DBName,TableName)
     # Create table only in the case it does not already exist
     if exists==False:
-        con = mdb.connect(DBName)
-        # Create the cursor object
+        ConInfo=str("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/03_TrägheitTool/"+DBName+'.db')
+        con = mdb.connect(ConInfo)# Create the cursor object
         cur = con.cursor()
         # Create the SQLite command
         SQLCom=str("'''"+"CREATE TABLE """+ TableName +" (" + FieldsString + ")" +"'''")
@@ -57,11 +57,12 @@ def CreateTableWithinDB(DBName, TableName, FieldsString):
         return True
 
 def PrintTableList(DBName):
-    os.chdir("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/03_TrägheitTool/")
+    
     # Checks if a table exists within a specific DB
     # Create a connection to the DB
     try:
-        con = mdb.connect(str(DBName+'.db'))
+        ConInfo=str("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/03_TrägheitTool/"+DBName+'.db')
+        con = mdb.connect(ConInfo)
         # Create the cursor object
         cur = con.cursor()
     except Exception as ex:
@@ -75,7 +76,7 @@ TableName='Projekte8'
 FieldsString='date text, trans text, symbol text, qty real, price real'
 #FieldsString='Projekt text, Projektnummer real, Beschreibung text, Anzahl_Tools real'
 # Check if table exists or create if not already existing
-# exists=TableExists(DBName,TableName)
+exists=TableExists(DBName,TableName)
 # Create the table if it doesnt exist yet
 #a=CreateTableWithinDB(DBName, TableName, FieldsString)
 PrintTableList(DBName)
