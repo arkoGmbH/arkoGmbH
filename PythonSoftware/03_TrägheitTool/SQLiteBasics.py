@@ -1,3 +1,4 @@
+# /Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/549_Funktionen_Berechnung/07_TrägheitsTool/PythonProject/env/bin/python
 # SQLite examples
 import sqlite3 as mdb
 import os
