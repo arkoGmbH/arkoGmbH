@@ -13,6 +13,7 @@
 import tkinter as tk # gesamtes tk also tk
 from tkinter import ttk # Es wird ttk importiert, sodas man nicht tk.ttk schreiben muss
 import tkinter.font as tkFont
+import os
 
 # Maths and plotting
 import numpy as np
@@ -25,6 +26,65 @@ from matplotlib.backends.backend_tkagg import (
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 
+# User defined libraries form the current file path
+#   Current file path: os.path.realpath(__file__)
+#   Current directory of file: os.path.abspath(os.path.dirname(__file__))
+os.chdir(os.path.abspath(os.path.dirname(__file__)))
+from SQLiteBasics import TableExists
+
+# Set again the directory to the env
+os.chdir("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/549_Funktionen_Berechnung/07_TrägheitsTool/PythonProject/")
+
+
+
+
+# Label collection class
+class LblCln():
+        def __init__(self):
+            self.tabname=''         # tab name to which the field belongs
+            self.Labelname=''       
+            self.Labelcontent=''    
+            self.PosX=''            # X-Position in pixels
+            self.PosY=''            # Y-Position in pixels
+        # Set a password
+        def _setPassword(self, password):
+            self._password = password
+        # Example to se the variable password notice the _set and the _password:
+        # u = User()
+        # u.password = 'Sarantapodarousa'
+
+# Input Field collection collection class
+class InpCln():
+        def __init__(self):
+            self.tabname=''         # tab name to which the field belongs
+            self.Fieldname=''       # Name and label of the Button
+            self.Fieldcontent=''    # Tab name on which the button belongs
+            self.PosX=''            # X-Position in pixels
+            self.PosY=''            # Y-Position in pixels
+
+# Button collection class
+class BtnCln(tk.Button):
+        def __init__(self):
+            self.Buttoname='' # Name and label of the Button
+            self.tabname=''   # Tab name on which the button belongs
+            self.tkButton=''  # tk.Button Objekt
+            self.command=''   # Command which the button will execute
+            self.PosX=''      # X-Position in pixels
+            self.PosY=''      # Y-Position in pixels
+
+
+# Graphic collection class
+class GraCln():
+        def __init__(self):
+            self.tabname=''     # Tab name on which the button belongs
+            self.figureObj=''   # Figure Objekt
+            self.canvasObj=''   # Canvas Objekt
+
+
+
+# Initalisieren und Beispiel
+T1B1=LblCln()
+T1B1.password='onmpgfasd'
 
 
 class Root(tk.Tk):
@@ -32,9 +92,8 @@ class Root(tk.Tk):
         # Initialise with tk.TK __init__ method
         super(Root, self).__init__()
         self.title("Ultrastruct")
-        self.minsize(800, 600)
+        self.minsize(800, 700)
         self.configure(background="white")
-        
         
         # Add the dropdown menus
         self.createMenu()
@@ -42,44 +101,92 @@ class Root(tk.Tk):
         # Create user interface with tabs
         tabControl = ttk.Notebook(self)
 
-        self.tab1 = ttk.Frame(tabControl)
-        tabControl.add(self.tab1, text="Projekte")
-        tk.Label(self.tab1, text= "Anal" ).place(x= 250, y= 20)
-        Analyiseren = tk.Button(self.tab1, text="Analysieren", command=lambda: self.ToTab2()).place(x=520, y=320)
-  
-        self.tab2 = ttk.Frame(tabControl)
-        tabControl.add(self.tab2, text="Fenster")
-        tk.Label(self.tab2, text= "Please Select your choice" ).place(x= 250, y= 20)
-        submit = tk.Button(self.tab2, text="Back to tab1", command=lambda: self.ToTab1()).place(x=520, y=320)
-        # Create the 
-        #self.BtnOnTab2()
-  
-        self.tab3 = ttk.Frame(tabControl)
-        tabControl.add(self.tab3, text="Details")
-        NewWindow = tk.Button(self.tab3, text="New", command=lambda: self.NewWindow()).place(x=520, y=320)
-
-
         # Fontdefinition
         fontbig = tkFont.Font(size=25)
+        fontbutton = tkFont.Font(size=20)
+        fontsmall = tkFont.Font(size=12)
 
-        lblProj=ttk.Label(self.tab1, text ="Übersicht aller Projekte", font=fontbig)
-        lblProj.grid(column = 0, row = 4,padx = 30,pady = 30)
+        # Standard button definition
+        btnw=15
+        btnh=3
 
-        # Input field
-        InputField = ttk.Entry(self.tab1,font=fontbig,width=10)
-        InputField.insert(0,45)
-        InputField.grid()
+        # tab0 (Home) ---------------------------
+        self.tab0 = ttk.Frame(tabControl)
+        tabControl.add(self.tab0, text="Tools")
+
+        # tab1 labels
+        ttk.Label(self.tab0, text ="Tools", font=fontbig).place(x= 0, y= 10)
+
+         # tab0 buttons
+        tk.Button(self.tab0, text="Flächenträgheit",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=0, y=80)
+        tk.Button(self.tab0, text="Schraubengruppe",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=0, y=180)
+        tk.Button(self.tab0, text="Knicken",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=0, y=280)
+        tk.Button(self.tab0, text="Fundament",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=0, y=380)
+        tk.Button(self.tab0, text="Elastischebettung",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=0, y=480)
+
+        tk.Button(self.tab0, text="Balkenbiegung",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=250, y=80)
+        tk.Button(self.tab0, text="Plattenbiegung",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=250, y=180)
+        tk.Button(self.tab0, text="Freiflächen",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=250, y=280)
 
 
-        fig = Figure(figsize=(6, 4), dpi=100)
+        # tab1 ---------------------------
+        self.tab1 = ttk.Frame(tabControl)
+        tabControl.add(self.tab1, text="Projekte")
+        
+         # tab1 Graphics
+        fig = Figure(figsize=(3, 2), dpi=100)
         t = np.arange(0, 3, .01)
-        t1 = np.array([0,40,40,0,0])
-        t2 = np.array([0,0,40,40,0])
+        x = np.array([0, 40, 40, 55, 45,20,0,0])
+        y = np.array([0, 0, 30, 30,40, 40,40,0])
         #fig.add_subplot().plot(t, 2 * np.sin(2 * np.pi * t))
-        fig.add_subplot().plot(t1, t2)
+        fig.add_subplot().plot(x, y)
         canvas = FigureCanvasTkAgg(fig, master=self.tab1)  # A tk.DrawingArea.
-        canvas.get_tk_widget().grid(row=10,column=2)
+        canvas.get_tk_widget().place(x= 0, y= 250) #grid(row=10,column=2)
         canvas.draw()
+
+
+        # tab1 labels
+        ttk.Label(self.tab1, text ="Projekte", font=fontbig).place(x= 0, y= 10)
+        ttk.Label(self.tab1, text= "Breite [mm]", font=fontsmall ).place(x= 0, y= 50)
+
+        # tab1 Input fields
+        InputField = ttk.Entry(self.tab1,font=fontbig,width=5)
+        InputField.place(x= 0, y= 70)
+        InputField.insert(0,45)
+        
+
+        # tab1 buttons
+        ttk.Button(self.tab1, text="Komponenten", command=lambda: self.ToTab2()).place(x=520, y=320)
+
+        #tab2 ---------------------------
+        self.tab2 = ttk.Frame(tabControl)
+        tabControl.add(self.tab2, text="Material")
+        # tab2 Graphics
+        # empty
+        #tab2 labels
+        tk.Label(self.tab2, text= "Please Select your choice" ).place(x= 250, y= 20)
+        # tab2 Input fields
+        # empty
+        #tab2 Buttons
+        tk.Button(self.tab2, text="Back to tab1", command=lambda: self.ToTab1()).place(x=520, y=320)
+
+        #tab3 ---------------------------
+        self.tab3 = ttk.Frame(tabControl)
+        tabControl.add(self.tab3, text="Details")
+        # tab3 Graphics
+        # empty
+        # tab3 labels
+        # empty
+        # tab3 Input fields
+        # empty
+        # tab3 buttons
+        # empty
+        # tab3 further behaviour
+        tk.Button(self.tab3, text="New", command=lambda: self.NewWindow()).place(x=520, y=320)
+
+       
+
+ 
 
 
         # Show the final user interface
@@ -107,7 +214,6 @@ class Root(tk.Tk):
         filemenu.add_separator()
         filemenu.add_command(label='Exit')
 
-
         helpmenu = tk.Menu(menubar,tearoff=0)
         menubar.add_cascade(label='Help',menu=helpmenu)
         helpmenu.add_command(label='Precuations')
@@ -123,36 +229,17 @@ class Root(tk.Tk):
         newTop.focus_set()
         newTop.geometry("400x600")
 
-    # On tab change behaviour
-    def on_tab_selected(event):
-        #selected_tab = event.widget.select()
-        #tab_text = event.widget.tab(selected_tab, "text")
-        print(mfr.tab(mfr.select(), "text"))
-  
-        # Assigning a function to an event of a widget is called event binding.
-        # When the event occurs, the assigned function is invoked automatically.
-        # On tab selection behaviour
-        # Example: widget.bind(event, handler, add=None)  in our case the event is <<NotebookTabChanged>> and the handler is the function on_tab_selected
-        mfr.bind("<<NotebookTabChanged>>", on_tab_selected)
-
-    def PrintTabName():
-        '''Show a frame for the given page name'''
-        # print( mfr.tab(tab2)['text']) tab2 name
-        print(mfr.tab(mfr.select(), "text"))
-        a=float(w.get())
-        #w.insert(0,a)
-        # New top level window
-
-        # Toplevel widgets work as windows that are directly managed by the window manager.
-        #  They do not necessarily have a parent widget on top of them.
-        #new = tk.Toplevel()
-        print('done')
-        #NamedFrames['tab2'].tkraise()
 
     # go back to specific tab
     def ToTab2(self):
             #ttk.Notebook.select(self.tab7)
             self.tab_control.select(self.tab2)
+
+
+# Check if table exists within the project database
+DBName='Projects.db'
+TableName='stocks'
+exists=TableExists(DBName,TableName)
 
 
 # Istantiate the App

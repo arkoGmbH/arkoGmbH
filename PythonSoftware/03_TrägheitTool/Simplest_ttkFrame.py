@@ -99,29 +99,30 @@ class Root(tk.Tk):
         newTop.geometry("400x600")
 
     # On tab change behaviour
-    def on_tab_selected(event):
+    #def on_tab_selected(event):
         #selected_tab = event.widget.select()
         #tab_text = event.widget.tab(selected_tab, "text")
-        print(mfr.tab(mfr.select(), "text"))
+        #print(mfr.tab(mfr.select(), "text"))
   
         # Assigning a function to an event of a widget is called event binding.
         # When the event occurs, the assigned function is invoked automatically.
         # On tab selection behaviour
         # Example: widget.bind(event, handler, add=None)  in our case the event is <<NotebookTabChanged>> and the handler is the function on_tab_selected
-        mfr.bind("<<NotebookTabChanged>>", on_tab_selected)
+        #mfr.bind("<<NotebookTabChanged>>", on_tab_selected)
 
-    def PrintTabName():
-        '''Show a frame for the given page name'''
+    #def PrintTabName():
+        #'''Show a frame for the given page name'''
+        #print('done')
         # print( mfr.tab(tab2)['text']) tab2 name
-        print(mfr.tab(mfr.select(), "text"))
-        a=float(w.get())
+        #print(mfr.tab(mfr.select(), "text"))
+        #a=float(w.get())
         #w.insert(0,a)
         # New top level window
 
         # Toplevel widgets work as windows that are directly managed by the window manager.
         #  They do not necessarily have a parent widget on top of them.
         #new = tk.Toplevel()
-        print('done')
+        
         #NamedFrames['tab2'].tkraise()
 
     # go back to specific tab
