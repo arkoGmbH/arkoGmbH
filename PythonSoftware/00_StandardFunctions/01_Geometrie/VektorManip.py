@@ -44,16 +44,16 @@ def RotMatY(theta):
 	
 	R=np.zeros((3,3)) # Double brackets for the zero matrix
 	
-	R[0,0]=1
+	R[0,0]=np.cos(np.radians(theta))
 	R[0,1]=0
-	R[0,2]=0
+	R[0,2]=np.sin(np.radians(theta))
 	
 	R[1,0]=0
-	R[1,1]=np.cos(np.radians(theta))
-	R[1,2]=-np.sin(np.radians(theta))
+	R[1,1]=1
+	R[1,2]=-0
 	
-	R[2,0]=0
-	R[2,1]=np.sin(np.radians(theta))
+	R[2,0]=-np.sin(np.radians(theta))
+	R[2,1]=0
 	R[2,2]=np.cos(np.radians(theta))
 
 	return R
@@ -170,35 +170,40 @@ def RotSpaltenVektoren(M, alpha, dir):
 	# Herausschreiben der rotierten Zeilenvektoren
 	return N
 
-# Testing -------------------------------
-theta=25
-a=RotMatX(theta)
-print(a)
-a=RotMatY(theta)
-print(a)
-a=RotMatZ(theta)
-print(a)
+def test():
+	# Testing -------------------------------
+	theta=25
+	a=RotMatX(theta)
+	print(a)
+	a=RotMatY(theta)
+	print(a)
+	a=RotMatZ(theta)
+	print(a)
 
-MZl=np.matrix([[17,  1, 8],
-        [		28,  1, 7],
-		 [		28,  1, 7],
-		  [		28,  1, 7]])
+	MZl=np.matrix([[17,  1, 8],
+			[		28,  1, 7],
+			[		28,  1, 7],
+			[		28,  1, 7]])
 
-MSpl=np.matrix([[17,  1, 8, 9, 7, 10,
-        [		28,  1, 7, 9, 7, 10],
-		[		28,  1, 7, 9, 7, 10],
-		[		28,  1, 7, 9, 7, 10]]])
-
-
-MZl=np.random.rand(6,3)
-MSpl=np.random.rand(3,6)
+	MSpl=np.matrix([[17,  1, 8, 9, 7, 10,
+			[		28,  1, 7, 9, 7, 10],
+			[		28,  1, 7, 9, 7, 10],
+			[		28,  1, 7, 9, 7, 10]]])
 
 
+	MZl=np.random.rand(6,3)
+	MSpl=np.random.rand(3,6)
 
-M1=RotZeilenVektoren(MZl,theta,1)
-M2=RotSpaltenVektoren(MSpl,theta,1)
 
 
-print(M1)
-print(M2)
+	M1=RotZeilenVektoren(MZl,theta,1)
+	M2=RotSpaltenVektoren(MSpl,theta,1)
+
+
+	print(M1)
+	print(M2)
+	
+
+
+#a=test()
 print('End')

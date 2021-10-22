@@ -34,12 +34,7 @@ from SQLiteBasics import TableExists
 from PunkteImport import ReadFile
 
 sys.path.append("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_StandardFunctions/01_Geometrie")
-from VektorManip import RotMatX
-
-M=RotMatX(45)
-FullPath='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/553_3DPoints/02_P-51Airfoil/P-51D_Root_airfoil.csv'
-M=ReadFile(FullPath)
-print(M)
+from VektorManip import RotSpaltenVektoren
 
 # Label collection class
 class LblCln():
@@ -137,19 +132,28 @@ class Root(tk.Tk):
         tabControl.add(self.tab1, text="Projekte")
         
          # tab1 Graphics
-        fig = Figure(figsize=(3, 2), dpi=100)
-        t = np.arange(0, 3, .01)
-        #x = np.array([0, 40, 40, 55, 45,20,0,0])
-        #y = np.array([0, 0, 30, 30,40, 40,40,0])
-        numrows, ncols = M.shape
+        fig = Figure(figsize=(5, 4), dpi=100)
+        xs = np.array([0, 40, 40, 55, 45,20,0,0])
+        ys = np.array([0, 0, 30, 30,40, 40,40,0])
+     
+        FullPath='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/553_3DPoints/02_P-51Airfoil/P-51D_Enhanced.csv'
+        M=ReadFile(FullPath)
+        A=RotSpaltenVektoren(M,15,1) # Um X-Richtung
+        B=RotSpaltenVektoren(A,30,2) # Um Y-Richtung
+        C=RotSpaltenVektoren(B,10,3) # Um Z-Richtung
+
+        numrows, ncols = C.shape
         x=np.zeros((1,ncols))
         y=np.zeros((1,ncols))
-        x[0,:]=M[0,:]
-        y[0,:]=M[1,:]
 
+        x[0,:]=C[0,:]
+        y[0,:]=C[1,:]
 
-        #fig.add_subplot().plot(t, 2 * np.sin(2 * np.pi * t))
-        fig.add_subplot().plot(x, y)
+        XL=x.tolist()
+        YL=y.tolist()
+
+        
+        fig.add_subplot().plot(xs, ys)
         canvas = FigureCanvasTkAgg(fig, master=self.tab1)  # A tk.DrawingArea.
         canvas.get_tk_widget().place(x= 0, y= 250) #grid(row=10,column=2)
         canvas.draw()
