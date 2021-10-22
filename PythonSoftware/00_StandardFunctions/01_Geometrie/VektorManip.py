@@ -9,7 +9,7 @@ def RotX(theta):
 	# 13.10.2021
 	# Rotationsmatrix um X-Achse
 	#
-	#
+	# dsagfsdfg
 	#--------------------------------
 	# INPUT: Winkel phi in ° (wird in radiants umgerechnet)
 	# OUTPUT: 3x3 Matrix mit rotationsfaktoren
