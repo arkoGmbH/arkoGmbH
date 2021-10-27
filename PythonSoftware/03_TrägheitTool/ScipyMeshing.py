@@ -13,8 +13,6 @@ def getEquidistantPoints(p1, p2, parts):
     #return zip(np.linspace(p1[0], p2[0], parts+1),
     #           np.linspace(p1[1], p2[1], parts+1))
 
-
-
 points = np.array([[0, 0],
                   [40, 0],
                   [40, 30],
@@ -22,10 +20,7 @@ points = np.array([[0, 0],
                   [60, 40], 
                   [40, 40],
                   [40, 80],
-                  [0, 80],
-                  [20, 80],
-                  [40, 60],
-                  [0, 40]])
+                  [0, 80]])
 
 
 # Define the lines in terms of point numbers
@@ -36,11 +31,14 @@ lines=np.array([[0, 1],
                  [4, 5],
                  [5, 6],
                  [6, 7],
-                 [7, 8]])
+                 [7, 0]])
 
 
 xf=np.array([0])
 yf=np.array([0])
+
+# Number of segments
+seg=20#mm
 
 for xy in lines:
   #print(xy[0])
@@ -48,29 +46,35 @@ for xy in lines:
   b=np.array(getEquidistantPoints(points[xy[0]], points[xy[1]], seg))
   xf=np.append(xf,b[0],axis=0)
   yf=np.append(yf,b[1],axis=0)
+
 # loop over the lines
 #for i in lines:
 #    print(lines[i][0])
+# create the final points np array
+i=0
 
-pfinal=np.array([xf, yf])
+ppoints=np.empty((0, 2), float)
+for x in xf:
+  #ppoints=np.array([[0, 0],
+  #                  [40, 0]])
+
+  ppoints=np.append(ppoints,np.array([[xf[i], yf[i]]]), axis=0)
+  i=i+1
+  #ppoints=np.array([float(xf[0]), float(yf[0])])
+
   
-tri = Delaunay(points)
+tri = Delaunay(ppoints)
 
 # Delete rows of tri that are outside the boundary
 print(tri.simplices)
-tri.simplices=np.delete(tri.simplices,10,0)
+#tri.simplices=np.delete(tri.simplices,10,0)
 # tri.simplices=np.delete(tri.simplices,2,0)
 # tri.simplices=np.delete(tri.simplices,2,0)
-# Number of segments
-seg=4 #mm
-
-
-
 
 
 # The triplot() function in pyplot module of matplotlib library is used to draw a unstructured triangular grid as lines and/or markers
-plt.triplot(points[:,0], points[:,1], tri.simplices)
-plt.plot(points[:,0], points[:,1], 'o')
+plt.triplot(ppoints[:,0], ppoints[:,1], tri.simplices)
+plt.plot(ppoints[:,0], ppoints[:,1], 'o')
 plt.show()
 
 
