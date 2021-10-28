@@ -1,8 +1,14 @@
 # https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Delaunay.html
+# https://stackoverflow.com/questions/31290738/create-a-triangular-mesh-using-delaunay-methods
+# https://stackoverflow.com/questions/31290738/create-a-triangular-mesh-using-delaunay-methods
 
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import Delaunay
+from shapely.geometry import Polygon
+from shapely.ops import triangulate
+
+
 
 
 def getEquidistantPoints(p1, p2, parts):
@@ -59,6 +65,8 @@ for x in xf:
   #                  [40, 0]])
 
   ppoints=np.append(ppoints,np.array([[xf[i], yf[i]]]), axis=0)
+  polygon = Polygon( [ (0,0), (0,3), (5,3), (2,4), (6,4), (6,0) ])
+
   i=i+1
   #ppoints=np.array([float(xf[0]), float(yf[0])])
 
@@ -78,6 +86,7 @@ plt.plot(ppoints[:,0], ppoints[:,1], 'o')
 plt.show()
 
 
+delauney=triangulate(polygon)
 # Create a convex haul (minimum boundary containing all defined points, wie von Thiery Mal gezeigt)
 #from scipy.spatial import ConvexHull, convex_hull_plot_2d
 #rng = np.random.default_rng()
