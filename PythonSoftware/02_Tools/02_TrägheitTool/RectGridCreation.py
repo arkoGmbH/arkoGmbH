@@ -1,5 +1,6 @@
 #ttps://alpynepyano.github.io/healthyNumerics/posts/cfd-01-rectangular-grid-genereation-python.html
 
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mclr
@@ -25,6 +26,17 @@ Path='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_Gm
 PathName=Path+DBName
 con = sqlite3.connect(PathName)
 
+# Save the profile points
+
+
+
+
+
+
+# Save input
+con.commit()
+# Close connection to DB
+con.close()
 
 nx = 70; ny = 85
 
