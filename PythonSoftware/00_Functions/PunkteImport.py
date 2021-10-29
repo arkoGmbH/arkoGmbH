@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 
-sys.path.append(SdrPath='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_Functions")
+sys.path.append('/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_Functions')
 import VektorManip
 
 def ReadFile(FullPath):
@@ -39,7 +39,7 @@ def ReadFile(FullPath):
     return M
 
 
-def test():
+def main():
     FullPath='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/553_3DPoints/02_P-51Airfoil/P-51D_Enhanced.csv'
     M=ReadFile(FullPath)
     A=RotSpaltenVektoren(M,15,1) # Um X-Richtung
@@ -60,7 +60,5 @@ def test():
     fig, ax = plt.subplots()  # Create a figure and an axes.
     ax.plot(XL[0], YL[0])  # Plot some data on the axes.
     plt.show()
-
-
-#a=test()
-print('END')
+    #a=test()
+    print('END')

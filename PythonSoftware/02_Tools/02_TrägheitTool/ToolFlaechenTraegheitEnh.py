@@ -26,6 +26,7 @@ from matplotlib.backends.backend_tkagg import (
 
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
+import sqlite3 as sq
 
 # User defined libraries form the current file path
 # Add the directory of the current file in which further files with functions are awailable (path append)
@@ -33,9 +34,12 @@ sys.path.append(os.chdir(os.path.abspath(os.path.dirname(__file__))))
 
 
 sys.path.append('/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_Functions')
+from PunkteImport import ReadFile
 import VektorManip as VM
 import SQLiteFunct as DBf
-import PunkteImport as PI
+
+
+
 
 # Label collection class
 class LblCln():
@@ -86,6 +90,9 @@ T1B1=LblCln()
 T1B1.password='onmpgfasd'
 
 
+
+
+
 class Root(tk.Tk):
     def __init__(self):
         # Initialise with tk.TK __init__ method
@@ -117,7 +124,7 @@ class Root(tk.Tk):
         ttk.Label(self.tab0, text ="Tools", font=fontbig).place(x= 0, y= 10)
 
          # tab0 buttons
-        tk.Button(self.tab0, text="Flächenträgheit",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=0, y=80)
+        tk.Button(self.tab0, text="Flächenträgheit",width=btnw,height=btnh,font=fontbutton, command=lambda: self.Flaechentraegheit()).place(x=0, y=80)
         tk.Button(self.tab0, text="Schraubengruppe",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=0, y=180)
         tk.Button(self.tab0, text="Knicken",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=0, y=280)
         tk.Button(self.tab0, text="Fundament",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=0, y=380)
@@ -126,6 +133,7 @@ class Root(tk.Tk):
         tk.Button(self.tab0, text="Balkenbiegung",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=250, y=80)
         tk.Button(self.tab0, text="Plattenbiegung",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=250, y=180)
         tk.Button(self.tab0, text="Freiflächen",width=btnw,height=btnh,font=fontbutton, command=lambda: self.ToTab2()).place(x=250, y=280)
+        tk.Button(self.tab0, text="Close all",width=btnw,height=btnh,font=fontbutton, command=self.destroy).place(x=250, y=400)
 
 
         # tab1 ---------------------------
@@ -139,9 +147,9 @@ class Root(tk.Tk):
      
         FullPath='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/553_3DPoints/02_P-51Airfoil/P-51D_Enhanced.csv'
         M=ReadFile(FullPath)
-        A=RotSpaltenVektoren(M,15,1) # Um X-Richtung
-        B=RotSpaltenVektoren(A,30,2) # Um Y-Richtung
-        C=RotSpaltenVektoren(B,10,3) # Um Z-Richtung
+        A=VM.RotSpaltenVektoren(M,15,1) # Um X-Richtung
+        B=VM.RotSpaltenVektoren(A,30,2) # Um Y-Richtung
+        C=VM.RotSpaltenVektoren(B,10,3) # Um Z-Richtung
 
         numrows, ncols = C.shape
         x=np.zeros((1,ncols))
@@ -231,26 +239,64 @@ class Root(tk.Tk):
         helpmenu.add_command(label='Version Info')
         helpmenu.add_command(label='Technical Support')
 
-
-
-    def NewWindow(self):
-        newTop = tk.Toplevel(self.master)
-        display = tk.Label(newTop, text="Review").pack()
-        newTop.title("Review and Submit")
-        newTop.focus_set()
-        newTop.geometry("400x600")
-
-
     # go back to specific tab
     def ToTab2(self):
             #ttk.Notebook.select(self.tab7)
             self.tab_control.select(self.tab2)
 
+    # Für die Analyse von Flächenträgheitsmomenten
+    def Flaechentraegheit(self):
+        newTop = tk.Toplevel(self.master)
+        #display = tk.Label(newTop, text="Review").pack()
+        newTop.title("Profileigenschaften")
+        newTop.focus_set()
+        newTop.geometry("1000x1000")
+        
+        
+        ttk.Button(newTop, text="Input", command=newTop.destroy).place(x=5, y=150) # Close button
+        ttk.Button(newTop, text="Analysieren", command=newTop.destroy).place(x=100, y=150) # Close button
+        ttk.Button(newTop, text="Close", command=newTop.destroy).place(x=250, y=150) # Close button
+        # X Koordinaten Input
+        ttk.Label(newTop, text ="X [mm]").place(x= 5, y= 25)
+        InputField = ttk.Entry(newTop,width=5)
+        InputField.place(x= 5, y= 75)
+        InputField.insert(0,0)
+        # Y Koordinaten Input
+        ttk.Label(newTop, text ="Y [mm]").place(x= 100, y= 25)
+        InputField = ttk.Entry(newTop,width=5)
+        InputField.place(x= 100, y= 75)
+        InputField.insert(0,0)
+        # Optionen für die Definition von Boundary oder hole
+        options = [
+            "Rand",
+            "Loch"
+            ]
+
+        # datatype of menu text
+        DPValue = tk.StringVar()
+        # initial menu text
+        DPValue.set( "Rand" )
+        # Create Dropdown menu
+        ttk.Label(newTop, text ="Punktetyp").place(x= 250, y= 25)
+        drop = tk.OptionMenu( newTop, DPValue , *options )
+        drop.place(x= 250, y= 75)
+        
+        # Profilgeometrie anzeigen
+        fig = Figure(figsize=(10, 7), dpi=100)
+        xs = np.array([0, 40, 40, 55, 45,20,0,0])
+        ys = np.array([0, 0, 30, 30,40, 40,40,0])
+        fig.add_subplot().plot(xs, ys)
+        canvas = FigureCanvasTkAgg(fig, master=newTop)  # A tk.DrawingArea.
+        canvas.get_tk_widget().place(x= 0, y= 200) #grid(row=10,column=2)
+        canvas.draw()
 
 # Check if table exists within the project database
-DBName='Projects.db'
-TableName='stocks'
-exists=TableExists(DBName,TableName)
+Path='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_Functions'
+DBName='Projekte'
+TableName='XYProfile'
+PathName=Path+DBName+'.db'
+con = sq.connect(PathName)
+exists=DBf.TableExists(con,TableName)
 
 
 # Istantiate the App

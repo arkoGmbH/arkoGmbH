@@ -14,8 +14,6 @@ import SQLiteFunct as DBf
 
 def main():
    
-
-   
     # Define the profile points
     points = np.array([[0, 0],
                     [40, 0],

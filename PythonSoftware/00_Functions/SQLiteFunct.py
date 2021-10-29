@@ -1,20 +1,17 @@
 # /Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/549_Funktionen_Berechnung/07_TrägheitsTool/PythonProject/env/bin/python
-# SQLite examples
+# SQLite basic functions
 import sqlite3 as mdb
 import os
 
-def CheckCreateTable(con,table_name):
-    # Create table if not existing
-    cur = con.cursor()
-    sql = 'create table if not exists ' + table_name + ' (id integer, X real , Y real, type integer, units text)'
-    cur.execute(sql)
-    return
-
 
 def TableExists(con,table_name):
-    # Check if table already exists
+    """
+    Check if table allready exists
+    :param: 
+    :return:
+    """
     cur = con.cursor()
-    sql = str(" SELECT count(name) FROM sqlite_master WHERE type='table' AND name=" + "'"+str(table_name)+ "'")
+    sql = str(" SELECT count(name) FROM sqlite_master WHERE type='table' AND name=" + "'"+ str(table_name) + "'")
     cur.execute(sql)
 
     # Show if table exists or not
@@ -25,6 +22,20 @@ def TableExists(con,table_name):
         exists=False
     
     return exists
+
+
+def CheckCreateTable(con,table_name):
+    """
+    Create table if not existing (two functions in one)
+    :param: 
+    :return:
+    """
+    cur = con.cursor()
+    sql = 'create table if not exists ' + table_name + ' (id integer, X real , Y real, type integer, units text)'
+    cur.execute(sql)
+    print(cur.fetchall())
+    return
+
 
 def PrintAllRows(con, table_name):
     """
@@ -45,39 +56,48 @@ def PrintAllRows(con, table_name):
         print(row)
 
 
-
-def DeleteSQLiteTable(TableName):
+def DeleteSQLiteTable(con, TableName):
+    """
+    Delete a table by name within a DB established by connection con
+    :param: 
+    :return:
+    """
     print('Deletes SQLite table by name')
 
 
 
-def CreateTableWithinDB(DBName, TableName, FieldsString):
-    # Example: FieldsSting="date text, trans text, symbol text, qty real, price real"   hence Field_Name type(text or real), Field_Name type, Field_Name type
-    exists=TableExists(DBName,TableName)
+
+def CreateTableWithinDB(con, TableName, FieldsStrings):
+    """
+    Create table within DBPathName with the FieldStings
+    :param: 
+    :return:
+    """
+    # Example: FieldsStings="date text, trans text, symbol text, qty real, price real"   hence Field_Name type(text or real), Field_Name type, Field_Name type
+    exists=TableExists(con,TableName)
     # Create table only in the case it does not already exist
     if exists==False:
-        ConInfo=str("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/03_TrägheitTool/"+DBName+'.db')
-        con = mdb.connect(ConInfo)# Create the cursor object
         cur = con.cursor()
         # Create the SQLite command
-        SQLCom=str("'''"+"CREATE TABLE """+ TableName +" (" + FieldsString + ")" +"'''")
+        SQLCom=str("'''"+"CREATE TABLE """+ TableName +" (" + FieldsStrings + ")" +"'''")
         # Create the actual Table in the Database
         print(SQLCom)
         cur.execute(SQLCom)
         print('Table created')
         return True
 
-def PrintTableList(DBName):
-    
+def PrintTableList(con):
+    """
+    Print all tables within a DB established with con
+    :param: 
+    :return:
+    """
     # Checks if a table exists within a specific DB
     # Create a connection to the DB
     try:
-        ConInfo=str("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/03_TrägheitTool/"+DBName+'.db')
-        con = mdb.connect(ConInfo)
-        # Create the cursor object
         cur = con.cursor()
     except Exception as ex:
-        print('Connection to DB failed DBName:' + DBName)
+        print('Connection to DB failed, check connection definition')
 
     cur.execute("SELECT name FROM sqlite_master WHERE type='table';")
     print(cur.fetchall())
