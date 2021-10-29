@@ -86,8 +86,15 @@ class GraCln():
 
 
 # Initalisieren und Beispiel
-T1B1=LblCln()
-T1B1.password='onmpgfasd'
+#T1B1=LblCln()
+#T1B1.password='onmpgfasd'
+
+# Profileigenschaftenabspeichern
+def ProfEigenSchaftenInDB(con,TableName,ValueString):
+    # Check create the table in which the data are recorded
+    DBf.CheckCreateTable(con,TableName)
+    # Insert the user interface data into TableName
+    DBf.InsertValues(con, TableName, ValueString)
 
 
 
@@ -252,20 +259,22 @@ class Root(tk.Tk):
         newTop.focus_set()
         newTop.geometry("1000x1000")
         
+        # Punkte Nummer
+        ttk.Label(newTop, text ="Punkte Nr.").place(x= 5, y= 25)
+        PNrIN = ttk.Entry(newTop,width=5)
+        PNrIN.place(x= 5, y= 75)
+        PNrIN.insert(0,0)
         
-        ttk.Button(newTop, text="Input", command=newTop.destroy).place(x=5, y=150) # Close button
-        ttk.Button(newTop, text="Analysieren", command=newTop.destroy).place(x=100, y=150) # Close button
-        ttk.Button(newTop, text="Close", command=newTop.destroy).place(x=250, y=150) # Close button
         # X Koordinaten Input
-        ttk.Label(newTop, text ="X [mm]").place(x= 5, y= 25)
-        InputField = ttk.Entry(newTop,width=5)
-        InputField.place(x= 5, y= 75)
-        InputField.insert(0,0)
+        ttk.Label(newTop, text ="X [mm]").place(x= 100, y= 25)
+        XIN = ttk.Entry(newTop,width=5)
+        XIN.place(x= 100, y= 75)
+        XIN.insert(0,0)
         # Y Koordinaten Input
-        ttk.Label(newTop, text ="Y [mm]").place(x= 100, y= 25)
-        InputField = ttk.Entry(newTop,width=5)
-        InputField.place(x= 100, y= 75)
-        InputField.insert(0,0)
+        ttk.Label(newTop, text ="Y [mm]").place(x= 195, y= 25)
+        YIN = ttk.Entry(newTop,width=5)
+        YIN.place(x= 195, y= 75)
+        YIN.insert(0,0)
         # Optionen für die Definition von Boundary oder hole
         options = [
             "Rand",
@@ -277,10 +286,18 @@ class Root(tk.Tk):
         # initial menu text
         DPValue.set( "Rand" )
         # Create Dropdown menu
-        ttk.Label(newTop, text ="Punktetyp").place(x= 250, y= 25)
+        ttk.Label(newTop, text ="Punktetyp").place(x= 350, y= 25)
         drop = tk.OptionMenu( newTop, DPValue , *options )
-        drop.place(x= 250, y= 75)
+        drop.place(x= 350, y= 75)
         
+
+        ttk.Button(newTop, text="Input", command=self.SavePrintProfEig(PNrIN.get(), XIN.get(), YIN.get(), DPValue.get())).place(x=5, y=150) # Close button
+        ttk.Button(newTop, text="Analysieren", command=newTop.destroy).place(x=100, y=150) # Close button
+        ttk.Button(newTop, text="Punkt Lösch.", command=newTop.destroy).place(x=220, y=150) # Close button
+        ttk.Button(newTop, text="Schliessen", command=newTop.destroy).place(x=350, y=150) # Close button
+
+
+
         # Profilgeometrie anzeigen
         fig = Figure(figsize=(10, 7), dpi=100)
         xs = np.array([0, 40, 40, 55, 45,20,0,0])
@@ -289,6 +306,18 @@ class Root(tk.Tk):
         canvas = FigureCanvasTkAgg(fig, master=newTop)  # A tk.DrawingArea.
         canvas.get_tk_widget().place(x= 0, y= 200) #grid(row=10,column=2)
         canvas.draw()
+
+    def SavePrintProfEig(self, PNrIN, XIN, YIN, TypIN):
+        DBName='ProjektDB.db'
+        TableName='ProfilEig'
+        Path='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/549_Funktionen_Berechnung/07_TrägheitsTool/PythonProject/'
+        PathName=Path+DBName
+        con = sq.connect(PathName)
+        ValueString=(PNrIN,XIN,YIN,TypIN,'mm') # 5 items
+        ProfEigenSchaftenInDB(con,TableName,ValueString)
+
+
+
 
 # Check if table exists within the project database
 Path='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_Functions'

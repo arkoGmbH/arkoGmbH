@@ -103,6 +103,46 @@ def PrintTableList(con):
     print(cur.fetchall())
 
 
+def NumberOfColumnsInTable(con, TableName):
+    """
+    Get the number of columns in a table
+    :param: 
+    :return:
+    """
+    sql= "PRAGMA table_info(%s)" % TableName
+    cur = con.cursor()
+    cur.execute(sql)
+    numberOfColumns = len(cur.fetchall())
+    return numberOfColumns
+
+def NumberOfRowsInTable(con, TableName):
+    """
+    Get the number of rows in a table
+    :param: 
+    :return:
+    """
+    sql= "SELECT Count() FROM %s" % TableName
+    cur = con.cursor()
+    cur.execute(sql)
+    numberOfRows = cur.fetchone()[0]
+    return numberOfRows
+
+def InsertValues(con, TableName, ValueString):
+    """
+    Insert single values to table TableName by the use of Valuestring of the type (15,'x',7,35, str(X[5,2])) ) notice that they have to match with
+    TableName definition
+    :param: 
+    :return:
+    """
+    cur = con.cursor()
+    cur.execute('INSERT INTO '+ TableName +' values (?, ?, ?, ?, ?)', ValueString)
+
+
+
+
+
+
+
 
 #----- OLD -------------------------------
 def OLDTableExists(DBName,TableName):
