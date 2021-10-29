@@ -8,46 +8,6 @@ from matplotlib import path
 import sqlite3
 from scipy.spatial import Delaunay
 
-def CheckCreateTable(con,table_name):
-    # Create table if not existing
-    cur = con.cursor()
-    sql = 'create table if not exists ' + table_name + ' (id integer, X real , Y real, type integer, units text)'
-    cur.execute(sql)
-    return
-
-
-def TableExists(con,table_name):
-    # Check if table already exists
-    cur = con.cursor()
-    sql = str(" SELECT count(name) FROM sqlite_master WHERE type='table' AND name=" + "'"+str(table_name)+ "'")
-    cur.execute(sql)
-
-    # Show if table exists or not
-    if cur.fetchone()[0]==1 :
-        exists=True
-        print('Table exists.')
-    else:
-        exists=False
-    
-    return exists
-
-def PrintAllRows(con, table_name):
-    """
-    Query all rows in the MyTable table
-    :param conn: the Connection object
-    :return:
-    """
-    cur = con.cursor()
-    b="SELECT * FROM 'XYProfil'"
-    sql='SELECT * FROM '+"'"+ table_name+"'"
-
-    #cur.execute("SELECT * FROM XYProfil")
-    cur.execute(sql)
-
-    rows = cur.fetchall()
-
-    for row in rows:
-        print(row)
 
 def main():
     # Standard functions path
