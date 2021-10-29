@@ -30,11 +30,12 @@ from matplotlib.figure import Figure
 # User defined libraries form the current file path
 # Add the directory of the current file in which further files with functions are awailable (path append)
 sys.path.append(os.chdir(os.path.abspath(os.path.dirname(__file__))))
-from SQLiteBasics import TableExists
-from PunkteImport import ReadFile
 
-sys.path.append("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_StandardFunctions/01_Geometrie")
-from VektorManip import RotSpaltenVektoren
+
+sys.path.append('/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_Functions')
+import VektorManip as VM
+import SQLiteFunct as DBf
+import PunkteImport as PI
 
 # Label collection class
 class LblCln():

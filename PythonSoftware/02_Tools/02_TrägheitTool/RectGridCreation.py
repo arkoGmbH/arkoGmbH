@@ -7,14 +7,15 @@ import matplotlib.colors as mclr
 from matplotlib import path
 import sqlite3
 from scipy.spatial import Delaunay
-
+ # Standard functions path
+SdrPath='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_Functions'
+sys.path.append(SdrPath)
+import SQLiteFunct as DBf
 
 def main():
-    # Standard functions path
-    SdrPath='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_Functions'
-    sys.path.append(SdrPath)
-    #import SQLite as DBf
+   
 
+   
     # Define the profile points
     points = np.array([[0, 0],
                     [40, 0],
@@ -35,23 +36,21 @@ def main():
     # Create the cursor with the data
     cur = con.cursor()
 
-    # Check/Create table if not existing
-    table_name='XYProfil'
-    # Check if table exists
-    print(TableExists(con,table_name))
-    # Creat table only in the case it exists
-    CheckCreateTable(con,table_name)
+    
+    table_name='XYProfil' # Table in which the operations take place
+    DBf.CheckCreateTable(con,table_name) # Check create table for operations
+    
+    #DBf.TableExists(con,table_name) # Check if table exists
+    
+    
 
     # Insert profile points
-    #cur.execute("INSERT INTO XYProfil VALUES (5,7)")
-    #cur.execute("INSERT INTO XYProfil values (?, ?,?,?)", (str(points[5,0]),str(points[5,1]),1,'mm'))
-    #cur.executemany("insert into XYProfil values (?, ?)", points)
     for i, item in enumerate(points[:,0]):
         cur.execute("INSERT INTO XYProfil values (?,?, ?,?,?)", (i,str(points[i,0]),str(points[i,1]),1,'mm')) # Table has 4 columns
     # Save the data in the DB
     con.commit()
 
-    PrintAllRows(con,'XYProfil')
+    DBf.PrintAllRows(con,'XYProfil')
 
     # Save input
     con.commit()

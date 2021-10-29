@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 
-sys.path.append("/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_StandardFunctions/01_Geometrie")
-from VektorManip import RotSpaltenVektoren
+sys.path.append(SdrPath='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/00_Functions")
+import VektorManip
 
 def ReadFile(FullPath):
     plt.close('all')
