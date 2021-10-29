@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mclr
 from matplotlib import path
+import sqlite3
 from scipy.spatial import Delaunay
 
 # Define the profile points
@@ -18,12 +19,16 @@ points = np.array([[0, 0],
                    [0, 0]])
 
 
-
+# Connect/Create DB in which the properties are stored
+DBName='Profileigenschaften.db'
+Path='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/549_Funktionen_Berechnung/07_TrägheitsTool/PythonProject/'
+PathName=Path+DBName
+con = sqlite3.connect(PathName)
 
 
 nx = 70; ny = 85
 
-number=200
+number=10
 
 #---- set the 1-dimensional arrays in x- and y-direction
 ix = np.linspace(-10,nx,num=number)
@@ -78,8 +83,6 @@ plt.plot(points[:,0], points[:,1], color='r', marker = 'o',linestyle='solid',lin
 xytr=np.vstack((xf, yf)).T
 tri = Delaunay(xytr)
 plt.triplot(xytr[:,0], xytr[:,1], tri.simplices)
-
-
 
 # Skalieren
 scale_factor = 1.1
