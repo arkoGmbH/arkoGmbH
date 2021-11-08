@@ -1,3 +1,4 @@
+#!/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/549_Funktionen_Berechnung/07_TrägheitsTool/PythonProject/env/bin/python
 # Information from: https://www.pythontutorial.net/tkinter/tkraise/
 # Notebook: https://www.pythontutorial.net/tkinter/tkinter-notebook/
 # ttk Style: https://stackoverflow.com/questions/54476511/setting-background-color-of-a-tkinter-ttk-frame
