@@ -17,3 +17,6 @@ obj = load_object("data.pickle")
  
 print(obj.param)
 print(isinstance(obj, MyClass))
+
+# Further information
+# https://www.datacamp.com/community/tutorials/pickle-python-tutorial
