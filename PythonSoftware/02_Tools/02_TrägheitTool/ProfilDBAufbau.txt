@@ -1,0 +1,43 @@
+# Beschreibung des Aufbaus der Profildatenbank zur Implementierung in Pyhton
+
+Tabelle Name:
+	ProfilEig
+
+Beschreibung des ProfilEig Objektes:
+	Ein Profil besteht aus mehrere Koordinatenpunkte
+
+
+TB:ProfilEig
+	UniqueProfilCode
+	ProfilName
+	A
+	Ix
+	Iy
+	Ixy
+	Ip
+	Jx
+	Jy
+	Jp
+
+cur.execute('''CREATE TABLE ProfilEig
+				(date text, trans text, symbol text, qty real, price real)''')	
+
+
+
+
+TB:ProfilKoord
+	Key:UniqueProfilCode
+	PunkteNummer
+	X_Koor
+	Y_Koor
+
+
+
+
+
+
+
+
+
+Allgemeines:
+You can't store the object itself in the DB. What you do is to store the data from the object and reconstruct it later. A good way is to use the excellent SQLAlchemy library. It l
