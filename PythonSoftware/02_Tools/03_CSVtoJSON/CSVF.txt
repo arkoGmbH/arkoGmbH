@@ -1,17 +1,3 @@
-_;V_0_Rd_c (Kantenbruch);_;_;_;_
-_;_;_;_;_;_
-Durchmesser;6;8;10;12;14
-Nicht;gerissen;_;_;_;_;_
-h_nom_min;(NG);[mm];40;45;55;65;75
-h_nom_max;(NG);[mm];55;65;85;100;115
-c_1min;(NG);[mm];40;40;50;50;50
-c_crN;(NG);[mm];_;_;_;_;_
-S_1min;(NG);[mm];40;40;50;50;50
-D_Gebmin;(NG);[mm];_;_;_;_;_
-Gerissen;_;_;_;_;_
-h_nom_min;(GR);[mm];40;45;55;65;75
-h_nom_max;(GR);[mm];55;65;85;100;115
-c_1min;(GR);[mm];40;40;50;50;50
-c_crN;(GR);[mm];_;_;_;_;_
-S_1min;(GR);[mm];40;40;50;50;50
-D_Gebmin;(GR);[mm];_;_;_;_;_
+column 1 name,column 2 name, column 3 name
+first row data 1,first row data 2,first row data 3
+second row data 1,second row data 2,second row data 3
