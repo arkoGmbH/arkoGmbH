@@ -1,3 +1,3 @@
-name,department,birthday month
-John Smith,Accounting,November
-Erica Meyers,IT,March
+name,department,birthday month, GlobalTableCode
+John Smith,Accounting,November, 11.05.2019
+Erica Meyers,IT,March, 11.05.2019
