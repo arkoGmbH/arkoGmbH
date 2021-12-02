@@ -78,15 +78,11 @@ evenmore={'Date':TBDate,'Table Name':TableName,'UniqueTableID':UniqueTableID,'Ta
 
 #data((d1[key], value) for (key, value) in d.items())
 
-#data.move_to_end('a')
-#Create json and write data
-with open(JSNF,'w') as jsonFile:
-    # make it readable and pretty
-    jsonFile.write(json.dumps(data,indent=4))
 
-with open(JSNF,'w') as jsonFile:
+# Create .json file
+with open(JSNF,'w',encoding="UTF-8") as jsonFile:
     # make it readable and pretty
-    jsonFile.write(json.dumps(evenmore,indent=4))
+    jsonFile.write(json.dumps(evenmore,indent=4, ensure_ascii=False))
 
 # Read the json file (notice that it has a nested dictionary inside on the basis of the row number)
 

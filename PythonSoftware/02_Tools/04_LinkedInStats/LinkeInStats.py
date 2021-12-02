@@ -15,19 +15,15 @@
 import csv
 import json
 
-PostDatum='02_Dez_2021'
-PostTitle='Post_SwitzerlandGlobal' # The name of the table as it will be saved as json file
-UniqueHeaderName='name' #Unique header name from which the values will be used as a key for the dictionary
+PostTitle='Post_SwitzerlandGlobal02_Dez_2021' # The name of the table as it will be saved as json file
 
-
+Dir='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/6_Marketing/00_LinkedIn_Blogs/Auswertung/'
 # Source CSV file (really comma separated) with commas in the first row
-CSVF='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/02_Tools/04_LinkedInStats/AuswertungEinesPosts.txt' # Text file mit copy paste des LinkedIn Posts
-
-# Directory to export the JSON file
-jsonDir='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/9_Projects/01_arko_GmbH/GitHub/arkoGmbH/PythonSoftware/02_Tools/04_LinkedInStats/'
+CSVF=Dir+PostTitle+'.txt' # Text file mit copy paste des LinkedIn Posts
 
 # Full directory of the JSON file
-JSNF=jsonDir+PostTitle+" "+PostDatum+'.json' # Json as a result
+JSNF=Dir+PostTitle+'.json' # Json as a result
+
 print('--- Start ----')
 MyData=[]
 # Initialise the dictionary
@@ -52,15 +48,13 @@ Firma[str(MyData[i])]=Number[0]
 i=2
 
 for x in MyData:
-    if x=="Beruf":
+    if MyData[i]=="Beruf":
         print("Du bist bei Beruf")
         break
     Number=MyData[i+1].split(",")
     Firma[str(MyData[i])]=Number[0]
     i=i+2
     print(x)
-   
-
 
 Beruf= {}
 # Manueles Setup für die erste Zeile
@@ -90,7 +84,7 @@ for x in MyData:
     print(x + ' i: ' + str(i))
 
 
-TotalAnalysis={"PostTitle":PostTitle,"PostDatum":PostDatum,"Firma":Firma,"Beruf":Beruf,"Herkunft":Herkunft}
+TotalAnalysis={"PostTitle":PostTitle,"Firma":Firma,"Beruf":Beruf,"Herkunft":Herkunft}
 
 #Create json and write data
 with open(JSNF,'w', encoding="UTF-8") as jsonFile:
