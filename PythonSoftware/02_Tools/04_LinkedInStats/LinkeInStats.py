@@ -15,7 +15,7 @@
 import csv
 import json
 
-PostTitle='Post_SwitzerlandGlobal02_Dez_2021' # The name of the table as it will be saved as json file
+PostTitle='JSON Format29_11_2021' # The name of the table as it will be saved as json file
 
 Dir='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/6_Marketing/00_LinkedIn_Blogs/Auswertung/'
 # Source CSV file (really comma separated) with commas in the first row
@@ -39,49 +39,61 @@ with open(CSVF, mode='r') as csv_file:
             i_clear += 1
         i_line +=1
 
+
 # Loop through MyData to get data by company
 Firma= {}
 i=0
 # First row with manual setup
-Number=MyData[i+1].split(",")
+Number=MyData[0].split(",")
 Firma[str(MyData[i])]=Number[0]
 i=2
-
-for x in MyData:
-    if MyData[i]=="Beruf":
+j=0
+for i in range(2,len(MyData),2):
+    if MyData[j]=="Beruf":
         print("Du bist bei Beruf")
+        StartBeruf=j
+        break
+    elif MyData[j+1]=="Beruf":
+        print("Du bist bei Beruf")
+        StartBeruf=j+1
         break
     Number=MyData[i+1].split(",")
     Firma[str(MyData[i])]=Number[0]
-    i=i+2
-    print(x)
+    j=j+1
+    print(i)
 
 Beruf= {}
 # Manueles Setup für die erste Zeile
-Number=MyData[15].split(",")
+Number=MyData[StartBeruf+1].split(",")
 Beruf[Number[6]]=Number[1]
-i=16
-for x in MyData:
-    if MyData[i]=="Herkunft":
-        print("Du bist bei Herkunft")
-        break
-    Number=MyData[i+1].split(",")
-    Beruf[MyData[i]]=Number[0]
-    i=i+2
-    print(x + ' i: ' + str(i))
+j=StartBeruf+2
+for i in range(0,len(MyData),2):
+    if i>StartBeruf+1:
+        if MyData[j]=="Herkunft":
+            print("Du bist bei Herkunft")
+            StartHerkunft=j
+            break
+        elif MyData[j+1]=="Herkunft":
+            print("Du bist bei Herkunft")
+            StartHerkunft=j+1
+            break
+        Number=MyData[i+1].split(",")
+        Beruf[MyData[i]]=Number[0]
+        j=j+1
+        print(i)
+  
+        
 
 Herkunft= {}
 # Manueles Setup für die erste Zeile
-Number=MyData[33].split(",")
+Number=MyData[StartHerkunft+1].split(",")
 Herkunft[Number[7]]=Number[0]
-i=34
-for x in MyData:
-    if i>=len(MyData)-1:
-        break
-    Number=MyData[i+1].split(",")
-    Herkunft[MyData[i]]=Number[0]
-    i=i+2
-    print(x + ' i: ' + str(i))
+
+for i in range(0,len(MyData),2):
+    if i>=StartHerkunft+1:
+        Number=MyData[i+1].split(",")
+        Herkunft[MyData[i]]=Number[0]
+        print(i)
 
 
 TotalAnalysis={"PostTitle":PostTitle,"Firma":Firma,"Beruf":Beruf,"Herkunft":Herkunft}
