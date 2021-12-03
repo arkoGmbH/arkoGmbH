@@ -14,7 +14,7 @@
 import csv
 import json
 
-PostTitle='JSON Format29_11_2021' # The name of the table as it will be saved as json file
+PostTitle='2021_10_08GrundsteineUltrastruct' # The name of the table as it will be saved as json file
 Stichtag='03.12.2021'
 
 Dir='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/6_Marketing/00_LinkedIn_Blogs/Auswertung/'
