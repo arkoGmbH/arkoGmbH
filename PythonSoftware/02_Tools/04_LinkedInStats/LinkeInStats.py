@@ -14,10 +14,32 @@
 import csv
 import json
 
-PostTitle='2021_10_08GrundsteineUltrastruct' # The name of the table as it will be saved as json file
-Stichtag='03.12.2021'
+selection=1
+PostTitle='2021_12_03DieGartenvonZug' # The name of the table as it will be saved as json file
+Stichtag='06.12.2021'
+
+# Manual text file selection (selection=1) or through PythonCom.txt file (selection=2)?
+
+
 
 Dir='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/6_Marketing/00_LinkedIn_Blogs/Auswertung/'
+
+if selection==1:
+    #Continue with manually set name
+    PostTitle=PostTitle
+    print('--- Manual defined post name will be used ---')
+elif selection==2:
+    #Read post name from the PythonCom file
+    CSVF=Dir+'PythonCom.txt' 
+    with open(CSVF, mode='r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=';') # No delimiter needed in reality
+        for row in csv_reader:
+            PostTitle=row[0]
+            print(PostTitle)
+        print('--- Python Com post name will be used ---')
+
+
+
 # Source CSV file (really comma separated) with commas in the first row
 CSVF=Dir+PostTitle+'.txt' # Text file mit copy paste des LinkedIn Posts
 
