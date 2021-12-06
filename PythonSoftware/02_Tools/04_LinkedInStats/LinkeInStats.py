@@ -13,14 +13,13 @@
 
 import csv
 import json
+from datetime import datetime
 
-selection=1
-PostTitle='2021_12_03DieGartenvonZug' # The name of the table as it will be saved as json file
-Stichtag='06.12.2021'
+selection=2
+PostTitle='TBD' #The name of the table as it will be saved as json file. Example: PostTitle='2021_12_03DieGartenvonZug'
+Stichtag= datetime.today().strftime('%d.%m.%Y')
 
 # Manual text file selection (selection=1) or through PythonCom.txt file (selection=2)?
-
-
 
 Dir='/Users/newmini/Documents/00_All/3_Arbeit/3_arko_GmbH/6_Marketing/00_LinkedIn_Blogs/Auswertung/'
 
@@ -56,7 +55,7 @@ with open(CSVF, mode='r') as csv_file:
     for row in csv_reader:
         # Use only the non empty rows
         if row:
-            print('Row 0 is: '+ row[0] + ' / Total text: ' + ", ".join(row))
+            #print('Row 0 is: '+ row[0] + ' / Total text: ' + ", ".join(row))
             MyData.append(", ".join(row))
             i_clear += 1
         i_line +=1
@@ -76,8 +75,7 @@ for i in range(2,len(MyData),2):
 
     Number=MyData[i+1].split(",")
     Firma[str(MyData[i])]=Number[0]
-  
-    print(i)
+
 
 Beruf= {}
 # Manueles Setup für die erste Zeile
@@ -91,7 +89,6 @@ for i in range(StartBeruf+2,len(MyData),2):
         break
     Number=MyData[i+1].split(",")
     Beruf[MyData[i]]=Number[0]
-    print(i)
   
 Herkunft= {}
 # Manueles Setup für die erste Zeile
@@ -101,7 +98,6 @@ Herkunft[Number[7]]=Number[0]
 for i in range(StartHerkunft+2,len(MyData)-1,2):
     Number=MyData[i+1].split(",")
     Herkunft[MyData[i]]=Number[0]
-    print(i)
 
 
 TotalAnalysis={"PostTitle":PostTitle,"Stichtag":Stichtag,"Firma":Firma,"Beruf":Beruf,"Herkunft":Herkunft}
