@@ -15,7 +15,7 @@ import csv
 import json
 from datetime import datetime
 
-selection=2
+selection=2     #Wähle 1 für Manuel oder 2 für Automatisch über File Maker Schnittstelle
 PostTitle='TBD' #The name of the table as it will be saved as json file. Example: PostTitle='2021_12_03DieGartenvonZug'
 Stichtag= datetime.today().strftime('%d.%m.%Y')
 
