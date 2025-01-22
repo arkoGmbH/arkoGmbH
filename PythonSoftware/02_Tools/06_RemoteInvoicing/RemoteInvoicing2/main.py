@@ -5,7 +5,7 @@ def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
     print(f'Start')  # Press Ctrl+F8 to toggle the breakpoint.
     url = 'https://pmarko.pythonanywhere.com/create_user'
-    payload={'first_name':'Petraaa','last_name':'Pan','save':'save'}
+    payload={'first_name':'Petsdfgaafadaa','last_name':'Psgfaf','save':'save'}
     r=requests.get(url, payload)
     if r.status_code == 200:
         print("Success!")
@@ -15,7 +15,14 @@ def print_hi(name):
     print(f'End')
 
 # Press the green button in the gutter to run the script.
+
 if __name__ == '__main__':
     print_hi('PyCharm')
+    i=1
+    while i<8:
+        print_hi('PyCharm')
+        i=i+1
+
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
