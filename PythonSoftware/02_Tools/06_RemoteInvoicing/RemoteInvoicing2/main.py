@@ -18,10 +18,6 @@ def print_hi(name):
 
 if __name__ == '__main__':
     print_hi('PyCharm')
-    i=1
-    while i<8:
-        print_hi('PyCharm')
-        i=i+1
 
 
 
