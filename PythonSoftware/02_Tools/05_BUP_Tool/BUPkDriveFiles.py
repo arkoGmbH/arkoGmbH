@@ -55,7 +55,7 @@ def copy_folder(src, dst):
 
 def main():
     
-    base_directory = "/Volumes/BUPSSD"  
+    base_directory = "/Users/newmini/Desktop/kDriveBUPs"  
     Path=create_folder_with_timestamp(base_directory)
 
 
@@ -67,28 +67,21 @@ def main():
     #destination_folder = folder_path
     #copy_folder(source_folder, destination_folder)
 
-    # 1_Private
+    # kDrive 1_Private
     folder_name = f"1_Private"
     folder_path = os.path.join(Path, folder_name)
-    source_folder = r"/Users/newmini/Documents/00_All/1_Private"
+    source_folder = r"/Users/newmini/kDrive/Intern/1_Private"
     destination_folder = folder_path
     copy_folder(source_folder, destination_folder)
 
-    # 3_Arbeit
-    folder_name = f"3_Arbeit"
-    folder_path = os.path.join(Path, folder_name)
-    source_folder = r"/Users/newmini/Documents/00_All/3_Arbeit"
-    destination_folder = folder_path
-    copy_folder(source_folder, destination_folder)
-
-     # 7_Pass_Folders
+    # kDrive 7_Pass_Folders
     folder_name = f"7_Pass_Folders"
     folder_path = os.path.join(Path, folder_name)
-    source_folder = r"/Users/newmini/Documents/00_All/7_Pass_Folders"
+    source_folder = r"/Users/newmini/kDrive/Intern/7_Pass_Folders"
     destination_folder = folder_path
-    copy_folder(source_folder, destination_folder)   
-    timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    print(timestamp)
+    copy_folder(source_folder, destination_folder)
+
+
     
 
 if __name__ == "__main__":
